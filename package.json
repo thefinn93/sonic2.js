@@ -1,0 +1,22 @@
+{
+  "name": "sonic2",
+  "version": "0.0.1",
+  "description": "Interact with a T-Mobile Sonic 2.0",
+  "main": "sonic.js",
+  "scripts": {
+    "test": "./test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thefinn93/sonic2.js"
+  },
+  "author": "Finn Herzfeld <finn@finn.io>",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/thefinn93/sonic2.js/issues"
+  },
+  "homepage": "https://github.com/thefinn93/sonic2.js",
+  "dependencies": {
+    "q": "^1.4.1"
+  }
+}
