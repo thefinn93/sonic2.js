@@ -58,7 +58,7 @@ Mifi.prototype.makeSodaCall = function(uri, action, params) {
 };
 
 Mifi.prototype.send_sms = function(to, message) {
-    return this.makeSodaCall('/soda/sms/message', 'create', {to: to, message: message});
+    return this.makeSodaCall('/soda/sms/message', 'create', {to: to, content: message});
 };
 
 module.exports = Mifi;
