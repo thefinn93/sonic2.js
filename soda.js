@@ -1,8 +1,9 @@
+var http = require('http');
 var Q = require('q');
 
-exports.makeRawRequest = function makeRawRequest(self, postdata) {
+function makeRawRequest(self, postdata) {
   var deferred = Q.defer();
-  var options = requestBase;
+  var options = self.requestBase;
 
   options.headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -36,9 +37,11 @@ exports.makeRawRequest = function makeRawRequest(self, postdata) {
   req.end();
 
   return deferred.promise;
-};
+}
 
-exports.makeSodaCall = function makeSodaCall(self, uri, args) {
+exports.makeRawRequest = makeRawRequest;
+
+function makeSodaCall(self, uri, args) {
   var sodamsg = {
     'message-id': 0,
     uri: uri
@@ -50,4 +53,6 @@ exports.makeSodaCall = function makeSodaCall(self, uri, args) {
   }
   var postdata = JSON.stringify({soda: sodamsg});
   return makeRawRequest(self, postdata);
-};
+}
+
+exports.makeSodaCall = makeSodaCall;

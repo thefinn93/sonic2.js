@@ -1,8 +1,6 @@
-var http = require('http');
 var util = require('util');
 var EventEmitter = require('events');
 var url = require('url');
-var Q = require('q');
 
 var soda = require('./soda');
 var sms = require('./sms');
@@ -22,7 +20,7 @@ function Mifi() {
 
   var self = this;
   var clientid = 0;
-  var requestBase = url.parse(options.url);
+  self.requestBase = url.parse(options.url);
 
   EventEmitter.call(this);
 
@@ -56,11 +54,11 @@ function Mifi() {
   }
 
   this.poll = function poll() {
-    return makeSodaCall('/soda/notify', {'client-id': clientid}).then(processPoll);
+    return soda.makeSodaCall(self, '/soda/notify', {'client-id': clientid}).then(processPoll);
   };
 
   this.send_sms = function send_sms(to, message) {
-      sms.send(self, to, message);
+      return sms.send(self, to, message);
   };
 
 }
