@@ -82,9 +82,11 @@ function Mifi() {
         clientid = result.soda['client-id'];
       }
 
-      for(var eventType in options.events) {
-        if(result.soda.hasOwnProperty(eventType)) {
-          self.emit(eventType, result.soda[eventType]);
+      var nonEventFields = ['long-polling', 'message-id', 'error-string', 'error'];
+      for(var e in result.soda) {
+        if(result.soda.hasOwnProperty(e) && nonEventFields.indexOf(e) == -1) {
+          self.emit('poll-event', e, result.soda[e]);
+          self.emit("raw-" + e, result.soda[e]);
         }
       }
 
@@ -94,7 +96,7 @@ function Mifi() {
           'client-id': clientid,
           params: options.events
         };
-        self.emit('connected', clientid);
+        self.emit('connect', clientid);
         return makeSodaCall('/soda/notify', params).then(processPoll);
       } else {
         return self.poll();

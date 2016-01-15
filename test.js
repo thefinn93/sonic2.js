@@ -17,16 +17,9 @@ if(process.env.TEST_NUMBER) {
 
 
 
-function log(e) {
-  console.dir(e, {depth: 100});
-}
-
-mifi.on('connect', log);
-mifi.on('battery', log);
-mifi.on('dm', log);
-mifi.on('hotspot', log);
-mifi.on('settings', log);
-mifi.on('sms', log);
-mifi.on('wwan', log);
+mifi.on('poll-event', function(event, data) {
+  console.log("Got event", event, data);
+  console.dir(data, {depth: 100});
+});
 
 mifi.poll();
